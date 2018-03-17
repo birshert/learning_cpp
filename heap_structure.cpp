@@ -115,11 +115,11 @@ public:
 int main() {
     Heap<int, Compare_max<int>> test_max;
     Heap<int, Compare_min<int>> test_min;
-    for (size_t i = 0; i != 10; ++i) {
+    for (size_t i = 0; i != 11; ++i) {
         test_max.Insert(i);
         test_min.Insert(i * 2);
     }
-    for (size_t i = 0; i != 10; ++i) {
+    for (size_t i = 0; i != 11; ++i) {
         std::cout << test_max.Extract() << ' ' << test_min.Extract() << '\n';
     }
 }
