@@ -1,3 +1,7 @@
+/*Template heap structure.
+Stores data inside a not complete binary tree.
+Can be transformed into a heap of minimum, or heap of maximum just by using correct template argument for your needs.*/
+
 #include <iostream>
 #include <vector>
 
