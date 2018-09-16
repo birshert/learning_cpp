@@ -134,7 +134,44 @@ std::vector<std::pair<std::string, int>> find_cycle(std::vector<std::pair<std::s
 
 std::map<std::pair<int, int>, Node> field;
 
-inline bool band(Node curr, Node check, int direction) {}
+inline bool band(Node curr, Node check, int dir) {
+    int dx = (check.x - curr.x), dy = (check.y - curr.y);
+    if (dir == 1) {
+        if (dy > 0 && dx > 0) {
+            if (dx >= dy - 3 && dx <= dy + 3) {
+                return true;
+            }
+        }
+    } else if (dir == 2) {
+        if (dy < 0 && dx > 0) {
+            dy *= -1;
+            if (dy > 0 && dx > 0) {
+                if (dx >= dy - 3 && dx <= dy + 3) {
+                    return true;
+                }
+            }
+        }
+    } else if (dir == 3) {
+        if (dy < 0 && dx < 0) {
+            dy *= -1;
+            dx *= -1;
+            if (dy > 0 && dx > 0) {
+                if (dx >= dy - 3 && dx <= dy + 3) {
+                    return true;
+                }
+            }
+        }
+    } else if (dir == 4) {
+        if (dy > 0 && dx < 0) {
+            dx *= -1;
+            if (dy > 0 && dx > 0) {
+                if (dx >= dy - 3 && dx <= dy + 3) {
+                    return true;
+                }
+            }
+        }
+    }
+}
 
 
 
@@ -158,35 +195,11 @@ inline int if_highway(Node curr, std::vector<std::vector<std::map<std::pair<int,
         }
     }
     if (flag) {
-        int max_xp = 0, max_yp = 0;
-        for (auto elem : future[direction][step]) {
-            if (elem.first.first > max_xp) {
-                max_xp = elem.first.first;
-            }
-            if (elem.first.second > max_yp) {
-                max_yp = elem.first.second;
-            }
-        }
-        curr.x += max_xp + 1;
-        curr.y += max_yp + 1;
-        for (int i = 0; i != pos/2; ++i) {
-            for (int j = -7; j != 7; ++j) {
-                if (field[{curr.x + j, curr.y + i}].color != 0) {
+        for (auto elem : field) {
+            if (future[direction][step].find(elem.first) == future[direction][step].end()) {
+                if (band(curr, elem.second, direction_highway[direction][step])) {
                     return -1;
-                } else {
-                    field.erase({curr.x + j, curr.y + i});
                 }
-            }
-            int highway = direction_highway[step][direction];
-            if (highway >= 2) {
-                curr.y += 1;
-            } else {
-                curr.y -= 1;
-            }
-            if (highway == 1 || highway == 2) {
-                curr.x -= 1;
-            } else {
-                curr.x += 1;
             }
         }
         return step + 1;
