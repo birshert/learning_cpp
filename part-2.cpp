@@ -47,7 +47,7 @@ int main() {
     std::vector<Relevant> t;
     std::vector<int> steps(38);
     input.open("C:\\Users\\birsh\\Desktop\\output.txt");
-    for (int i = 0; i != 987; ++i) {
+    for (int i = 0; i != 5059; ++i) {
         int cycle_step, step, x, y, color;
         input >> cycle_step >> step >> x >> y;
         xy_freq[{x, y}] += 1;
@@ -83,7 +83,7 @@ int main() {
     }
     std::cout << '\n';
     for (auto elem :xy_freq) {
-        std::cout << "From x = " << elem.first.first << " and y = " << elem.first.second << '\t' << elem.second << '\n';
+        std::cout << "From x = " << elem.first.first << " and y = " << elem.first.second << ":\t" << elem.second << '\n';
     }
     for (auto elem : t) {
         library[elem] += 1;
