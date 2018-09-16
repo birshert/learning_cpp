@@ -227,7 +227,7 @@ int main() {
         field[{cur_x, cur_y}] = curr;
         langton.new_xy();
     }
-    /*std::cout << "Picture for 0-colored field ant travel at 800 steps\n";
+    std::cout << "Picture for 0-colored field ant travel at 800 steps\n";
     std::cout << "Start is at intersection of lines\n";
     for (int i = max_xn - 5; i <= max_xp + 5; ++i) {
         for (int j = max_yn - 5; j <= max_yp + 5; ++j) {
@@ -245,7 +245,7 @@ int main() {
             std::cout << ' ';
         }
         std::cout << '\n';
-    }*/
+    }
     std::vector<std::pair<std::string, int>> path(turns.begin() + 500, turns.end());
     std::vector<std::pair<std::string, int>> temp = find_cycle(path);
     int len = temp.size();
@@ -392,7 +392,7 @@ int main() {
                 if (step > max) {
                     max = step;
                 }
-                out << g << '\t' << step << '\t' << x << '\t' << y << '\n';
+                out << g << '\t' << step << '\t' << x << '\t' << y << '\t' << direction_highway[stat.direction][g] + 1 <<'\n';
                 ++total_highway;
                 for (int i = 0; i != 3; ++i) {
                     for (int j = 0; j != 3; ++j) {
