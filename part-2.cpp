@@ -10,6 +10,7 @@
 class Relevant {
 public:
     int step;
+    int direction;
     std::pair<int, int> hw_start;
     int c = 0;
     std::vector<std::vector<std::vector<int>>> data;
@@ -48,8 +49,8 @@ int main() {
     std::vector<int> steps(38);
     input.open("C:\\Users\\birsh\\Desktop\\output.txt");
     for (int i = 0; i != 5059; ++i) {
-        int cycle_step, step, x, y, color;
-        input >> cycle_step >> step >> x >> y;
+        int cycle_step, step, x, y, color, direction;
+        input >> cycle_step >> step >> x >> y >> direction;
         xy_freq[{x, y}] += 1;
         steps[cycle_step - 1] += 1;
         Relevant temp(cycle_step);
@@ -112,7 +113,7 @@ int main() {
         }
     }
     for (auto elem : {max1, max2, max3}) {
-        std::cout << '\n' << "Highway has started over the step " << elem.first.step << '\n';
+        std::cout << '\n' << "Highway has started over the step " << elem.first.step << ", moving as " << elem.first.direction << '\n';
         std::cout << elem.second << " times" << '\n' << '\n';
         std::map<std::pair<int, int>, int> field;
         for (int i = 0; i != 3; ++i) {
@@ -133,18 +134,17 @@ int main() {
                         std::cout << ' ';
                     }
                 }
-                std::cout << ' ';
+                std::cout << '\t';
             }
             std::cout << '\n' << '\n';
         }
         std::cout << "Starting field is marked with 7" << '\n';
         for (int k = 0; k != elem.first.c; ++k) {
+            field.clear();
             if (k == elem.first.c - 1) {
                 std::cout << "Highway has started from x = " << elem.first.hw_start.first << " and y = " << elem.first.hw_start.second << ", is pointed with color 9" << '\n';
             }
             std::cout << "Out/in № " << k + 1 << '\n';
-            field.clear();
-            field[elem.first.hw_start] = 9;
             int max_x = 5, max_y = 5;
             for (int i = 0; i != 3; ++i) {
                 for (int j = 0; j != 3; ++j) {
@@ -160,6 +160,9 @@ int main() {
                     max_y = abs(el[1]);
                 }
             }
+            if (k == elem.first.c - 1) {
+                field[elem.first.hw_start] = 9;
+            }
             for (int i = -max_x - 2; i <= max_x + 2; ++i) {
                 for (int j = -max_y - 2; j <= max_y + 2; ++j) {
                     if (field.find({i, j}) != field.end()) {
@@ -173,7 +176,7 @@ int main() {
                             std::cout << ' ';
                         }
                     }
-                    std::cout << ' ';
+                    std::cout << '\t';
                 }
                 std::cout << '\n' << '\n';
             }
